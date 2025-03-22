@@ -8,7 +8,8 @@ redirect_from:
 ---
 A Short Bio
 ======
-I was a postdoctoral fellow of University of California, Santa Babara advised by Prof. [Lingqi Yan](https://sites.cs.ucsb.edu/~lingqi/). I received my Ph.D. degree from Shandong University, China, in 2022, working under the supervision of [Prof. Xiangxu Meng](http://vr.sdu.edu.cn/info/1010/1073.htm), co-supervised by [Prof. Lu Wang](http://vr.sdu.edu.cn/info/1010/1060.htm), and [Prof. Yanning Xu](http://vr.sdu.edu.cn/info/1010/1062.htm).
+
+I am a Full Researcher (equivalent to a Full Professor in the U.S. academic system) and a Ph.D. advisor at Shandong University. Prior to joining Shandong University, I was a Postdoctoral Fellow at the University of California, Santa Barbara (2023–2025). I also interned at Meta Zurich in 2022. I received my Ph.D. in Computer Science from Shandong University, China (2017–2022).
 
 Research
 ======
@@ -17,6 +18,7 @@ My research focuses on the intersection of artificial intelligence (AI) and phot
 
 News
 ======
+- **<span style="color:#3EB489">[Nov 2024]</span>** I will serve as a member of the SIGGRAPH Asia 2026 Paper Program Committee!
 - **<span style="color:#3EB489">[Nov 2024]</span>** I will serve as a member of the EGSR 2025 Paper Program Committee!
 - **<span style="color:#3EB489">[Dec 2024]</span>** We're excited to present our course, 'Recent Advances in Realistic Cloth Rendering,' at SIGGRAPH Asia 2024 in Tokyo! Join us if you're interested!
 - **<span style="color:#3EB489">[July 2024]</span>** I will serve as a member of the Eurographics 2025 Paper Program Committee!
