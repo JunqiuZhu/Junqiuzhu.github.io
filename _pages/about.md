@@ -9,7 +9,7 @@ redirect_from:
 A Short Bio
 ======
 
-I am a Full Researcher (equivalent to a Full Professor in the U.S. academic system) and a Ph.D. advisor at Shandong University. Prior to joining Shandong University, I was a Postdoctoral Fellow at the University of California, Santa Barbara (2023–2025). I also interned at Meta Zurich in 2022. I received my Ph.D. in Computer Science from Shandong University, China (2017–2022).
+I am a Full Researcher (equivalent to Full Professor in the U.S. academic system) and a Ph.D. advisor at Shandong University. I am a recipient of the Qilu Outstanding Young Scholar Award. Before joining Shandong University, I was a Postdoctoral Fellow at the University of California, Santa Barbara (2023–2025), and I interned at Meta Zurich in 2022. I received my Ph.D. in Computer Science from Shandong University, China (2017–2022).
 
 Research
 ======
@@ -18,9 +18,9 @@ My research focuses on the intersection of artificial intelligence (AI) and phot
 
 News
 ======
-- **<span style="color:#3EB489">[ 2025]</span>** I will serve as a member of the SIGGRAPH Asia 2025 Paper Program Committee!
-- **<span style="color:#3EB489">[ 2025]</span>** I will serve as a member of the Pacific Graphics 2025 Paper Program Committee!
-- **<span style="color:#3EB489">[ 2025]</span>** I will serve as a member of the CAD&CG 2025 Paper Program Committee!
+- **<span style="color:#3EB489">[Mar 2025]</span>** I will serve as a member of the SIGGRAPH Asia 2025 Paper Program Committee!
+- **<span style="color:#3EB489">[Mar 2025]</span>** I will serve as a member of the Pacific Graphics 2025 Paper Program Committee!
+- **<span style="color:#3EB489">[Mar 2025]</span>** I will serve as a member of the CAD&CG 2025 Paper Program Committee!
 - **<span style="color:#3EB489">[Nov 2024]</span>** I will serve as a member of the EGSR 2025 Paper Program Committee!
 - **<span style="color:#3EB489">[Dec 2024]</span>** We're excited to present our course, 'Recent Advances in Realistic Cloth Rendering,' at SIGGRAPH Asia 2024 in Tokyo! Join us if you're interested!
 - **<span style="color:#3EB489">[July 2024]</span>** I will serve as a member of the Eurographics 2025 Paper Program Committee!
