@@ -28,7 +28,7 @@ My research focuses on the intersection of artificial intelligence (AI) and phot
 News
 ======
 
-- **<span style="color:#3EB489">[Mar 2025]</span>** Thrilled to share that 3 papers I supervised have been accepted to EGSR  as part of the CGF track!
+- **<span style="color:#3EB489">[June 2025]</span>** Thrilled to share that 3 papers I supervised have been accepted to EGSR  as part of the CGF track!
 - **<span style="color:#3EB489">[Mar 2025]</span>** I start my career at Shadong University as a Full Researcher work with Prof. Lu Wang and Prof. Yanning Xu.
 - **<span style="color:#3EB489">[Mar 2025]</span>** I will serve as a member of the SIGGRAPH Asia 2025 Paper Program Committee!
 - **<span style="color:#3EB489">[Mar 2025]</span>** I will serve as a member of the Pacific Graphics 2025 Paper Program Committee!
