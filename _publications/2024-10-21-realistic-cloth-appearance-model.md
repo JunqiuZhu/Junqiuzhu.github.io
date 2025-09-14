@@ -11,6 +11,33 @@ author_profile: true
 <div class="row" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
   <!-- 图片显示在左边，占1/4宽度 -->
   <div class="col-md-3" style="flex: 1; margin-right: 20px;">
+    <img src="{{ '/imgs/cgf24.jpg' | prepend: base_path }}" alt="CGF 2024 Cloth Model" style="max-width: 100%; height: auto;">
+  </div>
+  
+  <!-- 论文信息显示在右边，占3/4宽度 -->
+  <div class="col-md-9" style="flex: 3;">
+    <h2 class="archive__item-title" itemprop="headline">
+      <a href="https://onlinelibrary.wiley.com/doi/epdf/10.1111/cgf.15283" target="_blank">
+        A Texture-Free Practical Model for Realistic Surface-Based Rendering of Woven Fabrics
+      </a>
+    </h2>
+    <p>
+      <strong>Authors:</strong> Junqiu Zhu, Lukas Bode, Apoorv Khattar, Junqiu Zhu, Ling-Qi Yan, Zahra Montazeri
+    </p>
+    <p>Published in <i>Computer Graphics Forum, 2025</i></p>
+    <p><a href="https://onlinelibrary.wiley.com/doi/epdf/10.1111/cgf.15283" target="_blank">[Download Paper]</a></p>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="row" style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+  <!-- 图片显示在左边，占1/4宽度 -->
+  <div class="col-md-3" style="flex: 1; margin-right: 20px;">
     <img src="{{ '/imgs/sig24.jpg' | prepend: base_path }}" alt="SIGGRAPH 2024 Cloth Model" style="max-width: 100%; height: auto;">
   </div>
   
