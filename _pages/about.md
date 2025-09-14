@@ -9,7 +9,7 @@ redirect_from:
 A Short Bio
 ======
 
-I am a Full Researcher (equivalent to Full Professor in the U.S. academic system) and a Ph.D. advisor at Shandong University. I am a recipient of the Qilu Outstanding Young Scholar Award. Before joining Shandong University, I was a Postdoctoral Fellow at the University of California, Santa Barbara (2023–2025), and I interned at Meta Zurich in 2022. I received my Ph.D. from Shandong University, China (2017–2022).
+I am a Full Researcher (equivalent to Full Professor in the U.S. academic system) at Shandong University. I am a recipient of the Qilu Outstanding Young Scholar Award. Before joining Shandong University, I was a Postdoctoral Fellow at the University of California, Santa Barbara (2023–2025), and I interned at Meta Zurich in 2022. I received my Ph.D. from Shandong University, China (2017–2022).
 
 Research
 ======
