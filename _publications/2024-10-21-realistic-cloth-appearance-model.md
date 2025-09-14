@@ -22,7 +22,7 @@ author_profile: true
       </a>
     </h2>
     <p>
-      <strong>Authors:</strong> Junqiu Zhu, Lukas Bode, Apoorv Khattar, Junqiu Zhu, Ling-Qi Yan, Zahra Montazeri
+      <strong>Authors:</strong> Apoorv Khattar, Junqiu Zhu, Ling-Qi Yan, Zahra Montazeri
     </p>
     <p>Published in <i>Computer Graphics Forum, 2025</i></p>
     <p><a href="https://onlinelibrary.wiley.com/doi/epdf/10.1111/cgf.15283" target="_blank">[Download Paper]</a></p>
