@@ -1,0 +1,1576 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Junqiu Zhu — researcher in computer graphics, photorealistic rendering, and appearance modeling.">
+  <title>Junqiu Zhu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #7a5aa6;
+      --color-background: #fffdf7;
+      --color-surface: #e2b84b20;
+      --color-note: #a77a18;
+      --color-line: #7a5aa650;
+      --color-text-primary: #28242c;
+      --color-text-secondary: #716b73;
+      --color-text-light: #7a5aa6;
+      --color-text-inverse: #ffffff;
+      --color-link-hover: #573b80;
+      --color-border: #e5ddc9;
+      --color-award-bg: #fbf0c9;
+      --color-award-border: #d8b75b;
+      --color-award-text: #8a6815;
+      --color-note-bg: #fbf5df;
+      --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      --font-size-xs: .85rem;
+      --font-size-sm: .9rem;
+      --font-size-base: .95rem;
+      --font-size-lg: 1.1rem;
+      --font-size-2xl: 1.25rem;
+      --font-size-3xl: 1.5rem;
+      --spacing-xs: .25rem;
+      --spacing-sm: .25rem;
+      --spacing-md: .35rem;
+      --spacing-lg: .5rem;
+      --spacing-xl: 1rem;
+      --container-width: 1000px;
+      --navbar-height: 3.5rem;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: .9rem;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--color-text-primary);
+      background-color: var(--color-background);
+      background-image:
+        radial-gradient(ellipse at 106% 18%, transparent 0 208px, rgba(122, 90, 166, .13) 209px 210px, transparent 211px 252px, rgba(210, 166, 45, .12) 253px 254px, transparent 255px 302px, rgba(122, 90, 166, .07) 303px 304px, transparent 305px),
+        radial-gradient(ellipse at -7% 72%, transparent 0 170px, rgba(210, 166, 45, .11) 171px 172px, transparent 173px 216px, rgba(122, 90, 166, .09) 217px 218px, transparent 219px),
+        linear-gradient(90deg, transparent calc(50% - 500px), rgba(122, 90, 166, .055) calc(50% - 500px), rgba(122, 90, 166, .055) calc(50% - 499px), transparent calc(50% - 499px), transparent calc(50% + 499px), rgba(210, 166, 45, .055) calc(50% + 499px), rgba(210, 166, 45, .055) calc(50% + 500px), transparent calc(50% + 500px));
+      background-attachment: fixed;
+      font-family: var(--font-primary);
+      font-size: var(--font-size-base);
+      line-height: 1.4;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::before {
+      top: 92px;
+      left: calc(50% + 475px);
+      width: 150px;
+      height: 330px;
+      border-radius: 68% 32% 58% 42% / 28% 55% 45% 72%;
+      background: #7a5aa6;
+      opacity: .1;
+      transform: rotate(13deg);
+    }
+
+    body::after {
+      bottom: 55px;
+      right: calc(50% + 470px);
+      width: 190px;
+      height: 260px;
+      border-radius: 38% 62% 31% 69% / 61% 30% 70% 39%;
+      background: #d9ae3f;
+      opacity: .12;
+      transform: rotate(-17deg);
+    }
+
+    .background-bird {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 0;
+      width: clamp(470px, 42vw, 620px);
+      height: clamp(470px, 42vw, 620px);
+      object-fit: cover;
+      pointer-events: none;
+      opacity: .27;
+      mix-blend-mode: multiply;
+      filter: saturate(.9) contrast(.97);
+      transform: translate(-50%, -50%) rotate(-5deg);
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 42%, rgba(0, 0, 0, .9) 55%, transparent 76%);
+      mask-image: radial-gradient(ellipse at center, #000 42%, rgba(0, 0, 0, .9) 55%, transparent 76%);
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+
+    main,
+    .footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    a:hover {
+      color: var(--color-link-hover);
+      text-decoration: underline;
+    }
+
+    a:focus-visible {
+      outline: 1.5px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 var(--spacing-lg);
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      height: var(--navbar-height);
+      background: rgba(255, 253, 247, .94);
+      box-shadow: 0 .5px 1px rgba(67, 50, 24, .1);
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      margin-right: var(--spacing-lg);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .logo::after {
+      content: "✦";
+      margin-left: .45rem;
+      color: #c69c2e;
+      font-size: .72em;
+      vertical-align: .14em;
+    }
+
+    .logo:hover {
+      text-decoration: none;
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      margin-left: auto;
+      list-style: none;
+    }
+
+    .nav-link {
+      display: block;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: 2px;
+      color: var(--color-text-primary);
+      background: var(--color-surface);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      line-height: 1.4;
+      text-decoration: none;
+    }
+
+    .nav-link:hover {
+      color: var(--color-primary);
+      background: var(--color-surface);
+      text-decoration: none;
+    }
+
+    .section {
+      padding: var(--spacing-xl) 0;
+      scroll-margin-top: calc(var(--navbar-height) + var(--spacing-sm));
+    }
+
+    .section-title {
+      position: relative;
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-xs);
+      font-size: var(--font-size-2xl);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 1.5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d3a72d 0%, #7a5aa6 44%, #7a5aa620 100%);
+    }
+
+    .profile-section {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr) 280px;
+      grid-template-areas: "photo text news" ". text news";
+      gap: var(--spacing-md) var(--spacing-xl);
+      align-items: start;
+    }
+
+    .profile-image {
+      grid-area: photo;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+
+    .profile-photo {
+      display: block;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: 50% 28%;
+      box-shadow:
+        0 0 0 3px var(--color-background),
+        0 0 0 4px #d1a83b,
+        8px 10px 0 #7a5aa61c;
+    }
+
+    .profile-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--spacing-sm);
+      width: 100%;
+      margin-top: .45rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 180px;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      color: var(--color-text-primary);
+      background: transparent;
+      font-family: inherit;
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      line-height: 1.4;
+      text-align: center;
+      text-decoration: none;
+      transition: all 250ms ease;
+    }
+
+    .btn:hover {
+      border-color: var(--color-text-light);
+      color: var(--color-text-primary);
+      background: var(--color-surface);
+      text-decoration: none;
+    }
+
+    .profile-text {
+      grid-area: text;
+      min-width: 0;
+    }
+
+    .latest-news {
+      grid-area: news;
+      min-width: 0;
+      padding: .75rem .8rem .8rem;
+      border-top: 2px solid #d2a62d;
+      border-bottom: 1px solid #7a5aa638;
+      background: rgba(255, 253, 247, .72);
+      box-shadow: 10px 12px 0 #7a5aa60a;
+    }
+
+    .latest-news h2 {
+      margin-bottom: .55rem;
+      color: var(--color-primary);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .latest-news-item {
+      padding: .5rem 0;
+      border-top: 1px solid #7a5aa624;
+    }
+
+    .latest-news-item:first-of-type {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .latest-news time {
+      display: block;
+      margin-bottom: .12rem;
+      color: #a77a18;
+      font-size: var(--font-size-xs);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .latest-news p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-xs);
+      line-height: 1.5;
+    }
+
+    .profile-name {
+      margin-bottom: var(--spacing-xs);
+      font-size: var(--font-size-3xl);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .profile-title {
+      margin-bottom: var(--spacing-md);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-lg);
+      font-weight: 400;
+    }
+
+    .profile-bio {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .profile-bio p {
+      margin-bottom: var(--spacing-md);
+      font-size: var(--font-size-base);
+      line-height: 1.5;
+    }
+
+    .institution-link {
+      color: var(--color-text-primary);
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-color: var(--color-primary);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    .institution-link:hover {
+      color: var(--color-primary);
+      text-decoration-thickness: 2px;
+    }
+
+    .note-paragraph {
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+      padding: var(--spacing-md);
+      border-left: 2px solid var(--color-note);
+      border-radius: 2px;
+      background: var(--color-note-bg);
+      font-size: var(--font-size-sm);
+      line-height: 1.5;
+    }
+
+    .note-paragraph::after {
+      content: "◆";
+      float: right;
+      margin-left: var(--spacing-lg);
+      color: #7a5aa6;
+      font-size: .72rem;
+      opacity: .7;
+    }
+
+    .note-label {
+      color: var(--color-note);
+      font-weight: 700;
+    }
+
+    .publications-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .year-title {
+      width: fit-content;
+      margin-bottom: var(--spacing-sm);
+      padding-bottom: var(--spacing-xs);
+      border-bottom: 1px solid var(--color-line);
+      color: var(--color-primary);
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .year-title::before {
+      content: "●";
+      margin-right: .38rem;
+      color: #d2a62d;
+      font-size: .48em;
+      vertical-align: .25em;
+    }
+
+    .publication {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-md);
+      min-height: auto;
+      margin-bottom: var(--spacing-xs);
+      padding: var(--spacing-sm);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, .72);
+      transition: box-shadow 150ms ease;
+    }
+
+    .publication:hover {
+      background: #fbf7ec;
+      box-shadow: 0 .5px 1px rgba(70, 48, 12, .08);
+    }
+
+    .publication-content {
+      order: 1;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .publication-title {
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .publication-title a {
+      color: inherit;
+    }
+
+    .publication-title a:hover {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .publication-authors {
+      max-width: 720px;
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 1.4;
+      overflow-wrap: break-word;
+    }
+
+    .author-self {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+
+    .publication-venue {
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-xs);
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    .publication-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding: .125rem var(--spacing-xs);
+      border-radius: 2px;
+      color: var(--color-text-secondary);
+      background: var(--color-surface);
+      font-size: var(--font-size-xs);
+      line-height: 1.4;
+      text-decoration: none;
+    }
+
+    .resource-link:hover {
+      color: var(--color-text-inverse);
+      background: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .award-inline {
+      display: inline-flex;
+      align-items: center;
+      margin-left: var(--spacing-xs);
+      padding: .125rem .375rem;
+      border: 1px solid var(--color-award-border);
+      border-radius: 999px;
+      color: var(--color-award-text);
+      background: var(--color-award-bg);
+      font-size: var(--font-size-xs);
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .publication-media {
+      order: 2;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: flex-end;
+      width: 180px;
+      height: 120px;
+      overflow: hidden;
+      border-radius: 2px;
+      align-self: flex-start;
+    }
+
+    .publication:not(.no-preview):not(:has(.publication-media))::after {
+      content: "PREVIEW";
+      order: 2;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 90px;
+      border: 1px solid #7a5aa62e;
+      border-radius: 2px;
+      color: #7a5aa6a8;
+      background:
+        radial-gradient(circle at 74% 28%, transparent 0 20px, #7a5aa622 21px 22px, transparent 23px 31px, #d2a62d26 32px 33px, transparent 34px),
+        linear-gradient(135deg, transparent 0 47%, #7a5aa61f 48% 49%, transparent 50%),
+        #fbf7ec;
+      font-size: .7rem;
+      font-weight: 600;
+    }
+
+    .publication-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 2px;
+      object-fit: cover;
+      object-position: center;
+      background: #fff;
+      filter: saturate(.92) contrast(1.02);
+    }
+
+    .publication-image.fit-contain {
+      padding: 3px;
+      object-fit: contain;
+      object-position: center !important;
+      background: var(--color-background);
+    }
+
+    .experience-grid,
+    .education-grid,
+    .news-grid {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .experience-item,
+    .education-item,
+    .news-item {
+      position: relative;
+      display: flex;
+      width: 100%;
+      margin-left: 8px;
+      padding-left: 16px;
+    }
+
+    .experience-item::before,
+    .education-item::before,
+    .news-item::before {
+      content: "";
+      position: absolute;
+      top: var(--spacing-lg);
+      bottom: var(--spacing-lg);
+      left: 0;
+      width: 1px;
+      border-radius: 2px;
+      background: var(--color-line);
+    }
+
+    .experience-item + .experience-item,
+    .news-item + .news-item {
+      margin-top: var(--spacing-md);
+      padding-top: var(--spacing-md);
+    }
+
+    .item-title {
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-text-light);
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .item-institution {
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .item-meta,
+    .item-description {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 1.4;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: .55rem;
+    }
+
+    .service-panel,
+    .honors-panel {
+      padding: .55rem .7rem .65rem;
+      border-top: 2px solid #d2a62d;
+      background: rgba(255, 253, 247, .76);
+      box-shadow: 8px 10px 0 rgba(122, 90, 166, .035);
+    }
+
+    .service-panel:nth-child(even) {
+      border-top-color: var(--color-primary);
+    }
+
+    .service-panel > h3,
+    .honors-panel > h3 {
+      margin-bottom: .35rem;
+      color: var(--color-primary);
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .service-group + .service-group {
+      margin-top: .45rem;
+    }
+
+    .service-group h4 {
+      width: fit-content;
+      margin-bottom: .12rem;
+      padding-bottom: .12rem;
+      border-bottom: 1px solid var(--color-line);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .service-list {
+      list-style: none;
+    }
+
+    .service-list li {
+      padding: .16rem 0;
+      border-top: 1px solid rgba(122, 90, 166, .12);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 1.35;
+    }
+
+    .service-list li:first-child {
+      border-top: 0;
+    }
+
+    .service-list strong {
+      color: var(--color-text-primary);
+      font-weight: 500;
+    }
+
+    .service-meta {
+      display: block;
+      margin-top: 0;
+      color: var(--color-text-secondary);
+    }
+
+    .honors-panel {
+      margin-top: .55rem;
+      border-top-color: #b38922;
+    }
+
+    .honors-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .55rem;
+    }
+
+    .summary-grid,
+    .application-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--spacing-xl);
+    }
+
+    .research-copy {
+      max-width: 900px;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .research-copy p {
+      margin-bottom: var(--spacing-md);
+      line-height: 1.5;
+    }
+
+    .research-area-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: var(--spacing-md) var(--spacing-xl);
+    }
+
+    .research-area {
+      padding: .55rem .7rem;
+      border-left: 2px solid var(--color-line);
+      background: rgba(255, 253, 247, .52);
+    }
+
+    .research-area strong {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .industry-copy {
+      max-width: 900px;
+    }
+
+    .industry-copy p {
+      margin-bottom: var(--spacing-xl);
+      line-height: 1.5;
+    }
+
+    .industry-list {
+      display: grid;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+      list-style: none;
+    }
+
+    .industry-list li {
+      padding: .55rem .7rem;
+      border-left: 2px solid var(--color-line);
+      background: rgba(255, 253, 247, .52);
+      line-height: 1.5;
+    }
+
+    .industry-list strong {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .summary-item,
+    .application-item {
+      padding: .7rem .75rem .8rem;
+      border-top: 2px solid #d2a62d;
+      background: rgba(255, 253, 247, .66);
+    }
+
+    .summary-item:nth-child(even),
+    .application-item:nth-child(even) {
+      border-top-color: var(--color-primary);
+    }
+
+    .summary-item h3,
+    .application-item h3 {
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .summary-item p,
+    .application-item p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: var(--spacing-xl);
+      padding: var(--spacing-xl) 0;
+      border-top: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-xs);
+    }
+
+    .footer::before {
+      content: "";
+      display: block;
+      width: 54px;
+      height: 4px;
+      margin: calc(-1rem - 2px) auto 1rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d4aa35 0 45%, #7a5aa6 45% 100%);
+    }
+
+    .footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--spacing-xl);
+    }
+
+    @media (max-width: 1279px) {
+      .background-bird {
+        display: none;
+      }
+    }
+
+    @media (max-width: 920px) and (min-width: 768px) {
+      .profile-section {
+        grid-template-columns: 200px minmax(0, 1fr);
+        grid-template-areas:
+          "photo text"
+          ". news";
+      }
+
+      .latest-news {
+        margin-top: var(--spacing-lg);
+      }
+    }
+
+    @media (max-width: 767px) {
+      body::before,
+      body::after {
+        display: none;
+      }
+
+      .navbar {
+        height: auto;
+        min-height: var(--navbar-height);
+        padding: var(--spacing-sm) 0;
+      }
+
+      .navbar .container {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+      }
+
+      .nav-list {
+        flex-wrap: wrap;
+        margin-left: 0;
+      }
+
+      .profile-section {
+        display: block;
+      }
+
+      .profile-image {
+        display: none;
+      }
+
+      .profile-name {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+      }
+
+      .profile-title {
+        display: block;
+        margin-top: .5rem;
+        font-size: 1.1rem;
+      }
+
+      .latest-news {
+        margin-top: var(--spacing-xl);
+      }
+
+      .publication {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-md);
+      }
+
+      .publication-media {
+        order: 1;
+        width: min(100%, 360px);
+        height: auto;
+        aspect-ratio: 1.5 / 1;
+        margin-inline: auto;
+        justify-content: center;
+      }
+
+      .publication:not(.no-preview):not(:has(.publication-media))::after {
+        order: 1;
+        width: 100%;
+      }
+
+      .publication-content {
+        order: 2;
+      }
+
+      .publication-authors {
+        max-width: 100%;
+        font-size: .85rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .honors-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-grid,
+      .application-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .research-area-list {
+        grid-template-columns: 1fr;
+      }
+
+      .footer .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img class="background-bird" src="public/background-bird.png" alt="" aria-hidden="true">
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+      <a class="logo" href="#about">Junqiu Zhu</a>
+      <ul class="nav-list">
+        <li><a class="nav-link" href="#about">About</a></li>
+        <li><a class="nav-link" href="#research">Research</a></li>
+        <li><a class="nav-link" href="#industry">Industry Applications</a></li>
+        <li><a class="nav-link" href="#publications">Publications</a></li>
+        <li><a class="nav-link" href="#services">Academic Services</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section" id="about">
+      <div class="container">
+        <div class="profile-section">
+          <aside class="profile-image">
+            <img class="profile-photo" src="public/junqiu-zhu-illustrated.png" alt="Illustrated portrait of Junqiu Zhu">
+            <div class="profile-actions">
+              <a class="btn" href="https://junqiuzhu.github.io/">Website</a>
+              <a class="btn" href="mailto:zhujunqiu@mail.sdu.edu.cn">Contact</a>
+            </div>
+          </aside>
+
+          <div class="profile-text">
+            <h1 class="profile-name">Junqiu Zhu <span class="profile-title">Full Researcher, Shandong University</span></h1>
+            <div class="profile-bio">
+              <p>
+                I am a Full Researcher (equivalent to Full Professor in the U.S. academic system) at Shandong University.
+                I am a recipient of the Qilu Outstanding Young Scholar Award. Before joining Shandong University,
+                I was a Postdoctoral Fellow at the University of California, Santa Barbara (2023–2025), and I interned
+                at Meta Zurich in 2022. I received my Ph.D. from Shandong University, China (2017–2022).
+              </p>
+            </div>
+
+            <p class="note-paragraph">
+              <span class="note-label">Openings:</span>
+              I am always interested in hearing from curious and self-motivated graduate students.
+              If your interests align with my research, please
+              <a class="institution-link" href="mailto:zhujunqiu@mail.sdu.edu.cn">email me</a>
+              with your CV and a brief description of the research questions you would like to explore.
+            </p>
+          </div>
+
+          <aside class="latest-news" aria-labelledby="latest-news-title">
+            <h2 id="latest-news-title">Latest News</h2>
+            <div class="latest-news-item">
+              <time datetime="2026-07">July 2026</time>
+              <p>Two papers were conditionally accepted to SIGGRAPH Asia 2026.</p>
+            </div>
+            <div class="latest-news-item">
+              <time datetime="2026-05">May 2026</time>
+              <p>Zahra Montazeri and I served as Diversity Chairs at Eurographics 2026 and organized the SHE Lunch.</p>
+            </div>
+            <div class="latest-news-item">
+              <time datetime="2026-04">April 2026</time>
+              <p>Our cloth work was integrated into <a href="https://www.youtube.com/watch?v=KVHXNC8J6QE">Chaos Corona 14</a> as a new feature.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <div class="container">
+        <h2 class="section-title">Research Summary</h2>
+        <div class="research-copy">
+          <p>
+            My research focuses on the intersection of artificial intelligence (AI) and photorealistic
+            rendering, particularly on visual appearance modeling (as applied in the metaverse and
+            digital human contexts). I am committed to unraveling the intricacies of why the real world
+            appears as it does and how we can model interactions with light in an accurate and effective manner.
+          </p>
+          <p>
+            Two distinct rendering paradigms have emerged: one focused on studying optical phenomena
+            and physical structures that influence appearance and building models that adhere to physical
+            laws, and the other on integrating data-driven approaches—such as training neural networks on
+            observational data—to enhance the accuracy and realism of digital representations. Ultimately,
+            my goal is to combine these two approaches to recreate the subtle nuances of the real world
+            within digital environments.
+          </p>
+          <p>My current work addresses several key application areas in rendering, such as:</p>
+        </div>
+        <div class="research-area-list">
+          <div class="research-area"><strong>Appearance Modeling:</strong> Developed high-fidelity models for cloth, hair/fur, skin, feathers, and glint, with real-world deployment in production pipelines at Meta, Weta and Tencent—targeting ultimate photorealism across both human and natural appearances.</div>
+          <div class="research-area"><strong>Frame Extrapolation:</strong> Real-time frame rate enhancement techniques optimized for PC and mobile platforms.</div>
+          <div class="research-area"><strong>Global Illumination:</strong> Real-time global illumination solutions for both PC and mobile devices.</div>
+          <div class="research-area"><strong>Stereo Rendering:</strong> Optimized stereo rendering algorithms bridging virtual and real-world visual experiences.</div>
+          <div class="research-area"><strong>Appearance Aggregation with Geometry Simplification:</strong> Accelerating rendering performance while preserving visual fidelity.</div>
+          <div class="research-area"><strong>Inverse Rendering:</strong> Inferring scene materials and lighting from captured imagery.</div>
+          <div class="research-area"><strong>Simulation Rendering:</strong> Integrating physical simulations seamlessly with rendering pipelines.</div>
+          <div class="research-area"><strong>Scene Representation:</strong> Efficient scene representation and reconstruction techniques.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="industry">
+      <div class="container">
+        <h2 class="section-title">Industry Applications</h2>
+        <div class="industry-copy">
+          <p>
+            My research has been translated into practical rendering technologies across consumer devices,
+            film production, and commercial rendering systems. Representative applications include:
+          </p>
+          <ul class="industry-list">
+            <li><strong>Meta:</strong> A surface-based cloth rendering model deployed in Meta’s released smart glasses.</li>
+            <li><strong>Weta Digital:</strong> A yarn-based cloth rendering model used in <em>Avatar: The Way of Water</em>, and a fur aggregation model applied in <em>Cocaine Bear</em>.</li>
+            <li><strong>Chaos Corona 14:</strong> Integration of my cloth appearance modeling research into its commercial photorealistic renderer.</li>
+            <li><strong>Tencent:</strong> Efficient hair-rendering solutions designed for real-time production applications.</li>
+            <li><strong>Mobile Device Manufacturers:</strong> Frame extrapolation and neural material technologies developed for efficient, high-quality rendering on mobile platforms.</li>
+          </ul>
+          <p>
+            These applications reflect my focus on bridging advanced rendering research with real-world
+            production requirements, including visual quality, computational efficiency, hardware constraints,
+            and practical deployment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publications">
+      <div class="container">
+        <h2 class="section-title">Publications</h2>
+        <div class="publications-container">
+          <div class="year-group">
+            <h3 class="year-title">2026</h3>
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://dl.acm.org/doi/abs/10.1145/3811311">Bounding Stratified Bernoulli Impulses for Ray Marching Gaussian Process Implicit Surfaces</a>
+                </h3>
+                <p class="publication-authors">Junjie Chen, Zhimin Fan, Ling-Qi Yan, <span class="author-self">Junqiu Zhu</span>, Yanwen Guo, Kun Zhou, Jie Guo</p>
+                <p class="publication-venue">ACM Transactions on Graphics 45 (4), 1–15, 2026</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="public/paper-previews/bounding-sbi.jpg" alt="Gaussian process implicit surface rendering results" style="object-position: 50% 46%;">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://dl.acm.org/doi/abs/10.1145/3811343">Efficient Fur and Hair Multiple Scattering Using Volumetric Approximation</a>
+                </h3>
+                <p class="publication-authors">Ruike Hu, <span class="author-self">Junqiu Zhu</span>, Minghao Lin, Ruian Zhang, Lu Wang, Jie Guo, Yanwen Guo, Ling-Qi Yan</p>
+                <p class="publication-venue">ACM Transactions on Graphics 45 (4), 1–12, 2026</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/fur-scattering.jpg" alt="Fur multiple-scattering comparison">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://dl.acm.org/doi/abs/10.1145/3811328">A Real-time, Multiscale and Procedural Feather Appearance Model</a>
+                </h3>
+                <p class="publication-authors">Xiang Chen, Bin Chen, Shouyi Wang, Zahra Montazeri, Ling-Qi Yan, Lu Wang, <span class="author-self">Junqiu Zhu</span></p>
+                <p class="publication-venue">ACM Transactions on Graphics 45 (4), 1–17, 2026</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="public/paper-previews/feather.jpg" alt="Procedural multiscale feather rendering" style="object-position: 50% 56%;">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://junqiuzhu.github.io/publications/">Knit2Vector: 3D Knitted Texture Reconstruction from Unconstrained Images via Differentiable Vectorization</a>
+                </h3>
+                <p class="publication-authors">Yu Zhou, Lingxin Cao, <span class="author-self">Junqiu Zhu</span>, Lin Lu</p>
+                <p class="publication-venue">Computer-Aided Design, 104129, 2026</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/knit2vector.jpg" alt="Knit2Vector knitted texture reconstruction results">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://doi.org/10.1109/TVCG.2026.3679889">GSReuse: Temporally Adaptive Screen-Space Reuse for Accelerating 3D Gaussian Splatting</a>
+                </h3>
+                <p class="publication-authors">Chengzhi Tao, Yiyang Sun, Jie Guo, Tao Zhang, Letian Huang, <span class="author-self">Junqiu Zhu</span>, Daoheng Wang, Yanwen Guo</p>
+                <p class="publication-venue">IEEE Transactions on Visualization and Computer Graphics, 2026</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/gsreuse.png" alt="GSReuse temporal reuse results for 3D Gaussian splatting">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://arxiv.org/abs/2602.23754">Neural Image Space Tessellation</a>
+                </h3>
+                <p class="publication-authors">Youyang Du, <span class="author-self">Junqiu Zhu</span>, Zheng Zeng, Lu Wang, Ling-Qi Yan</p>
+                <p class="publication-venue">arXiv:2602.23754, 2026</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/nist.jpg" alt="Neural image-space tessellation comparison">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_cvm24yarn.pdf">A Multi-scale Yarn Appearance Model with Fiber Details</a>
+                </h3>
+                <p class="publication-authors">Apoorv Khattar, <span class="author-self">Junqiu Zhu</span>, Jean-Marie Aubry, Emiliano Padovani, Marc Droske, Ling-Qi Yan, Zahra Montazeri</p>
+                <p class="publication-venue">Computational Visual Media, 2026</p>
+                <div class="publication-links">
+                  <a class="resource-link" href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_cvm24yarn.pdf">Paper</a>
+                </div>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/cvm24.jpg" alt="Multi-scale yarn appearance model">
+              </div>
+            </article>
+          </div>
+
+          <div class="year-group">
+            <h3 class="year-title">2025</h3>
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.70181">Real-time Level-of-detail Strand-based Rendering</a>
+                </h3>
+                <p class="publication-authors">Tao Huang, Yang Zhou, Daqi Lin, <span class="author-self">Junqiu Zhu</span>, Ling-Qi Yan, Kui Wu</p>
+                <p class="publication-venue">Computer Graphics Forum 44 (4), e70181, 2025</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/strand-lod.webp" alt="Level-of-detail strand rendering results">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://onlinelibrary.wiley.com/doi/epdf/10.1111/cgf.15283">A Texture-Free Practical Model for Realistic Surface-Based Rendering of Woven Fabrics</a>
+                </h3>
+                <p class="publication-authors">Apoorv Khattar, <span class="author-self">Junqiu Zhu</span>, Ling-Qi Yan, Zahra Montazeri</p>
+                <p class="publication-venue">Computer Graphics Forum 44 (1), e15283, 2025</p>
+                <div class="publication-links">
+                  <a class="resource-link" href="https://onlinelibrary.wiley.com/doi/epdf/10.1111/cgf.15283">Paper</a>
+                </div>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/cgf24.jpg" alt="Woven fabric rendering" style="object-position: 50% 22%;">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://onlinelibrary.wiley.com/doi/pdf/10.1111/cgf.70243">Automatic Reconstruction of Woven Cloth from a Single Close-up Image</a>
+                </h3>
+                <p class="publication-authors">Chenghao Wu, Apoorv Khattar, <span class="author-self">Junqiu Zhu</span>, Steve Pettifer, Ling-Qi Yan, Zahra Montazeri</p>
+                <p class="publication-venue">Computer Graphics Forum 44 (7), e70243, 2025</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/woven-reconstruction.gif" alt="Automatic reconstruction of woven cloth">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.70183">Reshadable Impostors with Level-of-Detail for Real-Time Distant Objects Rendering</a>
+                </h3>
+                <p class="publication-authors">Xiaoloong Wu, Zheng Zeng, <span class="author-self">Junqiu Zhu</span>, Lu Wang</p>
+                <p class="publication-venue">Computer Graphics Forum 44 (4), e70183, 2025</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="public/paper-previews/reshadable-impostors.png" alt="Reshadable level-of-detail impostor rendering" style="object-position: 50% 46%;">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.70176">Detail-Preserving Real-Time Hair Strand Linking and Filtering</a>
+                </h3>
+                <p class="publication-authors">Tao Huang, JunPing Yuan, Ruike Hu, Lu Wang, Yanwen Guo, Bin Chen, Jie Guo, <span class="author-self">Junqiu Zhu</span></p>
+                <p class="publication-venue">Computer Graphics Forum 44 (4), e70176, 2025</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/hair-filtering.gif" alt="Detail-preserving real-time hair filtering">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://www.sciencedirect.com/science/article/pii/S1524070325000487">Edge-aware Denoising Framework for Real-time Mobile Ray Tracing</a>
+                </h3>
+                <p class="publication-authors">Haosen Fu, Mingcong Ma, <span class="author-self">Junqiu Zhu</span>, Lu Wang, Yanning Xu</p>
+                <p class="publication-venue">Graphical Models 141, 101301, 2025</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/mobile-denoising.jpg" alt="Edge-aware mobile ray tracing denoising results">
+              </div>
+            </article>
+          </div>
+
+          <div class="year-group">
+            <h3 class="year-title">2024</h3>
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_sig24cloth.pdf">A Realistic Multi-scale Surface-based Cloth Appearance Model</a>
+                </h3>
+                <p class="publication-authors"><span class="author-self">Junqiu Zhu</span>, Lukas Bode, Adrian Jarabo, Carlos Aliaga, Christophe Hery, Ling-Qi Yan, Matt Jen-Yuan Chiang</p>
+                <p class="publication-venue">ACM SIGGRAPH 2024 (Conference Track)</p>
+                <div class="publication-links">
+                  <a class="resource-link" href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_sig24cloth.pdf">Paper</a>
+                </div>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/sig24.jpg" alt="Multi-scale cloth appearance model">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://dl.acm.org/doi/pdf/10.1145/3680532.3689587">Recent Advances in Realistic Cloth Rendering</a>
+                </h3>
+                <p class="publication-authors"><span class="author-self">Junqiu Zhu</span>, Zahra Montazeri, Matt Jen-Yuan Chiang, Ling-Qi Yan</p>
+                <p class="publication-venue">SIGGRAPH Asia 2024 Courses, 1–16, 2024</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/cloth-course.jpg" alt="Examples from the realistic cloth rendering course">
+              </div>
+            </article>
+          </div>
+
+          <div class="year-group">
+            <h3 class="year-title">2023</h3>
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_egsr23cloth.pdf">A Practical and Hierarchical Yarn-based Shading Model for Cloth</a>
+                </h3>
+                <p class="publication-authors"><span class="author-self">Junqiu Zhu</span>, Zahra Montazeri, Jean-Marie Aubry, Ling-Qi Yan, Andrea Weidlich</p>
+                <p class="publication-venue">
+                  Computer Graphics Forum (Proceedings of Eurographics Symposium on Rendering 2023)
+                  <span class="award-inline">Best Paper · Best Visual Effects</span>
+                </p>
+                <div class="publication-links">
+                  <a class="resource-link" href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_egsr23cloth.pdf">Paper</a>
+                </div>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/suozijia.jpg" alt="Hierarchical yarn shading model">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_sig23cloth.pdf">A Realistic Surface-based Cloth Rendering Model</a>
+                </h3>
+                <p class="publication-authors"><span class="author-self">Junqiu Zhu</span>, Adrian Jarabo, Carlos Aliaga, Ling-Qi Yan, Matt Jen-Yuan Chiang</p>
+                <p class="publication-venue">ACM SIGGRAPH 2023 (Conference Track)</p>
+                <div class="publication-links">
+                  <a class="resource-link" href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_sig23cloth.pdf">Paper</a>
+                </div>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/cloth.jpg" alt="Surface-based cloth rendering model">
+              </div>
+            </article>
+          </div>
+
+          <div class="year-group">
+            <h3 class="year-title">2022</h3>
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://sites.cs.ucsb.edu/~lingqi/project_page/fur_aggregation/index.html">Practical Level-of-detail Aggregation of Fur Appearance</a>
+                </h3>
+                <p class="publication-authors"><span class="author-self">Junqiu Zhu</span>, Sizhe Zhao, Lu Wang, Yanning Xu, Ling-Qi Yan</p>
+                <p class="publication-venue">ACM Transactions on Graphics (Proceedings of SIGGRAPH 2022)</p>
+                <div class="publication-links">
+                  <a class="resource-link" href="https://sites.cs.ucsb.edu/~lingqi/project_page/fur_aggregation/index.html">Project</a>
+                </div>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/ham.jpg" alt="Fur appearance aggregation" style="object-position: 50% 44%;">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_glints_survey.pdf">Recent Advances in Glinty Appearance Rendering</a>
+                </h3>
+                <p class="publication-authors"><span class="author-self">Junqiu Zhu</span>, Sizhe Zhao, Yanning Xu, Xiangxu Meng, Lu Wang, Ling-Qi Yan</p>
+                <p class="publication-venue">Computational Visual Media 8 (4), 535–552, 2022</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="public/paper-previews/glinty-survey.jpg" alt="Glinty appearance rendering examples">
+              </div>
+            </article>
+
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.14448">Real-Time Microstructure Rendering with MIP-Mapped Normal Map Samples</a>
+                </h3>
+                <p class="publication-authors">Haowen Tan, <span class="author-self">Junqiu Zhu</span>, Yanning Xu, Xiangxu Meng, Lu Wang, Ling-Qi Yan</p>
+                <p class="publication-venue">Computer Graphics Forum 41 (1), 495–506, 2022</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image fit-contain" src="public/paper-previews/microstructure.jpg" alt="Real-time microstructure rendering results">
+              </div>
+            </article>
+
+            <article class="publication no-preview">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://www.sciengine.com/doi/pdf/0BC1AE4FD19B4F2AA66F3E95745510AD">State-of-the-art Survey on Photorealistic Rendering of 3D Scenes Based on Machine Learning</a>
+                </h3>
+                <p class="publication-authors">Ye-Zi Zhao, Lu Wang, Yan-Ning Xu, Zheng Zeng, Liang-Sheng Ge, <span class="author-self">Jun-Qiu Zhu</span>, Zi-Lin Xu, Yu Zhao, Xiang-Xu Meng</p>
+                <p class="publication-venue">Journal of Software 33 (1), 356–376, 2022</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="year-group">
+            <h3 class="year-title">2021</h3>
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://sites.cs.ucsb.edu/~lingqi/publications/paper_complum.pdf">Neural Complex Luminaires: Representation and Rendering</a>
+                </h3>
+                <p class="publication-authors"><span class="author-self">Junqiu Zhu</span>, Yaoyi Bai, Zilin Xu, Steve Bako, Edgar Velázquez-Armendáriz, Lu Wang, Pradeep Sen, Miloš Hašan, Ling-Qi Yan</p>
+                <p class="publication-venue">ACM Transactions on Graphics 40 (4), 57:1–57:12, 2021</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="public/paper-previews/neural-luminaires.jpg" alt="Neural complex luminaire rendering results">
+              </div>
+            </article>
+          </div>
+
+          <div class="year-group">
+            <h3 class="year-title">2019</h3>
+            <article class="publication">
+              <div class="publication-content">
+                <h3 class="publication-title">
+                  <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13876">A Stationary SVBRDF Material Modeling Method Based on Discrete Microsurface</a>
+                </h3>
+                <p class="publication-authors"><span class="author-self">Junqiu Zhu</span>, Yanning Xu, Lu Wang</p>
+                <p class="publication-venue">Computer Graphics Forum 38 (7), 745–754, 2019</p>
+              </div>
+              <div class="publication-media">
+                <img class="publication-image" src="public/paper-previews/svbrdf.jpg" alt="Stationary SVBRDF material modeling results" style="object-position: 50% 42%;">
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <h2 class="section-title">Academic Services</h2>
+        <div class="services-grid">
+          <article class="service-panel">
+            <h3>Professional Service</h3>
+            <div class="service-group">
+              <h4>Conference Organization</h4>
+              <ul class="service-list">
+                <li><strong>Diversity Chair</strong>, Eurographics ’26</li>
+                <li><strong>Organizer</strong>, SHE Lunch, Eurographics ’26</li>
+                <li><strong>Organizer</strong>, Women in Rendering Dinner ’25, ’24</li>
+                <li><strong>Panel Organizer</strong>, <em>Fairness and Equity amid Unequal Access to Computing Resources</em>, Eurographics ’26</li>
+                <li><strong>Organizer</strong>, Qimingxing Computer Graphics Summer Camp ’26, ’25</li>
+              </ul>
+            </div>
+            <div class="service-group">
+              <h4>Technical Papers Committee</h4>
+              <ul class="service-list">
+                <li><strong>SIGGRAPH</strong> ’26</li>
+                <li><strong>SIGGRAPH Asia</strong> ’25, ’24</li>
+                <li><strong>Eurographics</strong> ’26, ’25</li>
+                <li><strong>Eurographics Symposium on Rendering (EGSR)</strong> ’26, ’25</li>
+                <li><strong>Pacific Graphics</strong> ’26, ’25, ’24</li>
+                <li><strong>CAD/Graphics</strong> ’26, ’25</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="service-panel">
+            <h3>Teaching</h3>
+            <div class="service-group">
+              <h4>Courses and Development</h4>
+              <ul class="service-list">
+                <li>
+                  <strong>Computer Networks</strong>
+                  <span class="service-meta">Fall ’25, Spring ’26</span>
+                </li>
+                <li>
+                  <strong>Visual Analytics</strong>
+                  <span class="service-meta">Spring ’26</span>
+                </li>
+                <li><strong>Digital-Human Course Development for the iFLYTEK Classroom Platform</strong> ’26</li>
+              </ul>
+            </div>
+            <div class="service-group">
+              <h4>Lectures and Summer Schools</h4>
+              <ul class="service-list">
+                <li>
+                  <strong>Introduction to Physically Based Rendering</strong>
+                  <span class="service-meta">Symposium on Geometry Processing, Massachusetts Institute of Technology ’24</span>
+                </li>
+                <li>
+                  <strong>Recent Advances in Photorealistic Cloth Rendering</strong>
+                  <span class="service-meta">SIGGRAPH Asia, The University of Tokyo ’24</span>
+                </li>
+                <li>
+                  <strong>Lecturer, Qimingxing Computer Graphics Summer Camp ’26</strong>
+                  <span class="service-meta">Approximately 100 participants</span>
+                </li>
+                <li><strong>Lecturer, USTC Computer Graphics Summer Camp ’25</strong></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <article class="honors-panel">
+          <h3>Selected Honors and Awards</h3>
+          <div class="honors-grid">
+            <div class="service-group">
+              <h4>Research Awards</h4>
+              <ul class="service-list">
+                <li><strong>Best Paper Award</strong>, Eurographics Symposium on Rendering ’23</li>
+                <li><strong>Best Visual Effect Award</strong>, Eurographics Symposium on Rendering ’23</li>
+                <li><strong>Shandong University President’s Award Honorable Mention</strong> ’21</li>
+              </ul>
+            </div>
+            <div class="service-group">
+              <h4>Teaching Award</h4>
+              <ul class="service-list">
+                <li><strong>Second Prize, Young Faculty Teaching Competition</strong></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="container">
+        <h2 class="section-title">Research Experience</h2>
+        <div class="experience-grid">
+          <article class="experience-item">
+            <div>
+              <div class="item-title">Full Researcher</div>
+              <div class="item-institution">Shandong University</div>
+              <div class="item-meta">2025–present</div>
+            </div>
+          </article>
+          <article class="experience-item">
+            <div>
+              <div class="item-title">Postdoctoral Researcher</div>
+              <div class="item-institution">University of California, Santa Barbara</div>
+              <div class="item-meta">2023–2025</div>
+            </div>
+          </article>
+          <article class="experience-item">
+            <div>
+              <div class="item-title">Research Intern</div>
+              <div class="item-institution">Meta, Zurich</div>
+              <div class="item-meta">2022</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <div class="container">
+        <h2 class="section-title">Education</h2>
+        <div class="education-grid">
+          <article class="education-item">
+            <div>
+              <div class="item-title">Ph.D. in Software Engineering</div>
+              <div class="item-institution">Shandong University</div>
+              <div class="item-description">Ph.D. Thesis: Rendering of the Complex Material</div>
+              <div class="item-meta">2017–2022</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© 2025 Junqiu Zhu</span>
+      <span>Last updated 2025-09-15</span>
+    </div>
+  </footer>
+
+</body>
+</html>
