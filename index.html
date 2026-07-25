@@ -349,6 +349,40 @@
       line-height: 1.5;
     }
 
+    .latest-news-extra[hidden] {
+      display: none;
+    }
+
+    .latest-news-toggle {
+      width: 100%;
+      margin-top: .35rem;
+      padding: .5rem 0 .1rem;
+      border: 0;
+      border-top: 1px solid #7a5aa624;
+      color: var(--color-primary);
+      background: transparent;
+      font-family: inherit;
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      line-height: 1.4;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .latest-news-toggle::after {
+      content: "↓";
+      float: right;
+      color: #a77a18;
+    }
+
+    .latest-news-toggle[aria-expanded="true"]::after {
+      content: "↑";
+    }
+
+    .latest-news-toggle:hover {
+      color: var(--color-link-hover);
+    }
+
     .profile-name {
       margin-bottom: var(--spacing-xs);
       font-size: var(--font-size-3xl);
@@ -866,26 +900,68 @@
     }
 
     @media (max-width: 767px) {
+      html {
+        font-size: 1rem;
+      }
+
+      body {
+        background-attachment: scroll;
+      }
+
       body::before,
       body::after {
         display: none;
       }
 
+      .container {
+        padding-right: 1rem;
+        padding-left: 1rem;
+      }
+
+      .section {
+        padding: .85rem 0;
+      }
+
+      .section-title {
+        margin-bottom: .55rem;
+        font-size: 1.3rem;
+      }
+
       .navbar {
         height: auto;
         min-height: var(--navbar-height);
-        padding: var(--spacing-sm) 0;
+        padding: .45rem 0 .35rem;
       }
 
       .navbar .container {
         align-items: flex-start;
         flex-direction: column;
-        gap: var(--spacing-sm);
+        gap: .35rem;
+      }
+
+      .logo {
+        font-size: 1rem;
       }
 
       .nav-list {
-        flex-wrap: wrap;
+        width: 100%;
+        flex-wrap: nowrap;
+        gap: .35rem;
         margin-left: 0;
+        padding-bottom: .15rem;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scrollbar-width: none;
+      }
+
+      .nav-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-link {
+        padding: .32rem .52rem;
+        font-size: .78rem;
+        white-space: nowrap;
       }
 
       .profile-section {
@@ -893,72 +969,172 @@
       }
 
       .profile-image {
-        display: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: .9rem;
+        margin-bottom: .8rem;
+      }
+
+      .profile-photo {
+        width: 104px;
+        height: 104px;
+        flex: 0 0 104px;
+      }
+
+      .profile-actions {
+        flex: 1;
+        gap: .4rem;
+        margin-top: 0;
+      }
+
+      .btn {
+        min-height: 42px;
+        max-width: none;
       }
 
       .profile-name {
-        margin-bottom: 1rem;
-        font-size: 2rem;
+        margin-bottom: .65rem;
+        font-size: 1.65rem;
       }
 
       .profile-title {
         display: block;
-        margin-top: .5rem;
-        font-size: 1.1rem;
+        margin-top: .3rem;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+
+      .profile-bio p {
+        font-size: .95rem;
+        line-height: 1.55;
+      }
+
+      .note-paragraph {
+        padding: .6rem .7rem;
       }
 
       .latest-news {
-        margin-top: var(--spacing-xl);
+        margin-top: .85rem;
+        padding: .7rem .75rem .75rem;
+      }
+
+      .latest-news-item {
+        padding: .42rem 0;
       }
 
       .publication {
         flex-direction: column;
         align-items: stretch;
-        gap: var(--spacing-md);
+        gap: .55rem;
+        margin-bottom: .45rem;
+        padding: .65rem;
       }
 
       .publication-media {
-        order: 1;
-        width: min(100%, 360px);
+        order: 2;
+        width: 100%;
+        max-width: 360px;
         height: auto;
-        aspect-ratio: 1.5 / 1;
+        max-height: 200px;
+        aspect-ratio: 1.55 / 1;
         margin-inline: auto;
         justify-content: center;
       }
 
       .publication:not(.no-preview):not(:has(.publication-media))::after {
-        order: 1;
+        order: 2;
         width: 100%;
       }
 
       .publication-content {
-        order: 2;
+        order: 1;
+      }
+
+      .publication-title {
+        font-size: .96rem;
+        line-height: 1.35;
       }
 
       .publication-authors {
         max-width: 100%;
-        font-size: .85rem;
+        font-size: .82rem;
+        line-height: 1.38;
+      }
+
+      .publication-venue,
+      .resource-link {
+        font-size: .78rem;
+      }
+
+      .publication-title,
+      .publication-authors,
+      .publication-venue,
+      .research-area,
+      .industry-list li,
+      .service-list li {
+        overflow-wrap: anywhere;
       }
 
       .services-grid {
         grid-template-columns: 1fr;
+        gap: .5rem;
       }
 
       .honors-grid {
         grid-template-columns: 1fr;
+        gap: .4rem;
       }
 
       .summary-grid,
       .application-grid {
         grid-template-columns: 1fr;
+        gap: .5rem;
       }
 
       .research-area-list {
         grid-template-columns: 1fr;
+        gap: .45rem;
+      }
+
+      .research-area,
+      .industry-list li {
+        padding: .52rem .62rem;
+      }
+
+      .service-panel,
+      .honors-panel {
+        padding: .6rem .7rem .7rem;
       }
 
       .footer .container {
         flex-direction: column;
+        gap: .25rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        padding-right: .8rem;
+        padding-left: .8rem;
+      }
+
+      .profile-photo {
+        width: 92px;
+        height: 92px;
+        flex-basis: 92px;
+      }
+
+      .profile-image {
+        gap: .7rem;
+      }
+
+      .profile-name {
+        font-size: 1.5rem;
+      }
+
+      .publication {
+        padding: .55rem;
       }
     }
   </style>
@@ -1024,6 +1200,65 @@
               <time datetime="2026-04">April 2026</time>
               <p>Our cloth work was integrated into <a href="https://www.youtube.com/watch?v=KVHXNC8J6QE">Chaos Corona 14</a> as a new feature.</p>
             </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2026-03">March 2026</time>
+              <p>Three papers were conditionally accepted to ACM SIGGRAPH 2026 (TOG).</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2025-06">June 2025</time>
+              <p>Three supervised papers were accepted by EGSR / Computer Graphics Forum.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2025-03">March 2025</time>
+              <p>Joined Shandong University as a Full Researcher.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2025-03">March 2025</time>
+              <p>Member of the SIGGRAPH Asia 2025 Paper Program Committee.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2025-03">March 2025</time>
+              <p>Member of the Pacific Graphics 2025 Paper Program Committee.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2025-03">March 2025</time>
+              <p>Member of the CAD&amp;CG 2025 Paper Program Committee.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2024-12">December 2024</time>
+              <p>Presented a course at SIGGRAPH Asia 2024.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2024-11">November 2024</time>
+              <p>Member of the EGSR 2025 Paper Program Committee.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2024-07">July 2024</time>
+              <p>Member of the Eurographics 2025 Paper Program Committee.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2024-07">July 2024</time>
+              <p>Co-organized the Women in Rendering Dinner at EGSR with Zahra Montazeri.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2024-04">April 2024</time>
+              <p>Instructor at the Symposium on Geometry Processing 2024 Graduate School.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2024-04">April 2024</time>
+              <p>Member of the Pacific Graphics 2024 Paper Program Committee.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2024-03">March 2024</time>
+              <p>Member of the SIGGRAPH Asia 2024 Paper Program Committee.</p>
+            </div>
+            <div class="latest-news-item latest-news-extra" hidden>
+              <time datetime="2023-06">June 2023</time>
+              <p>Received the EGSR Best Paper Award and Best Visual Effects Award.</p>
+            </div>
+            <button class="latest-news-toggle" type="button" aria-expanded="false">
+              Expand all
+            </button>
           </aside>
         </div>
       </div>
@@ -1182,7 +1417,7 @@
                 </div>
               </div>
               <div class="publication-media">
-                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/cvm24.jpg" alt="Multi-scale yarn appearance model">
+                <img class="publication-image" src="public/paper-previews/cvm24.jpg" alt="Multi-scale yarn appearance model">
               </div>
             </article>
           </div>
@@ -1214,7 +1449,7 @@
                 </div>
               </div>
               <div class="publication-media">
-                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/cgf24.jpg" alt="Woven fabric rendering" style="object-position: 50% 22%;">
+                <img class="publication-image" src="public/paper-previews/cgf24.jpg" alt="Woven fabric rendering" style="object-position: 50% 22%;">
               </div>
             </article>
 
@@ -1285,7 +1520,7 @@
                 </div>
               </div>
               <div class="publication-media">
-                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/sig24.jpg" alt="Multi-scale cloth appearance model">
+                <img class="publication-image" src="public/paper-previews/sig24.jpg" alt="Multi-scale cloth appearance model">
               </div>
             </article>
 
@@ -1320,7 +1555,7 @@
                 </div>
               </div>
               <div class="publication-media">
-                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/suozijia.jpg" alt="Hierarchical yarn shading model">
+                <img class="publication-image" src="public/paper-previews/suozijia.jpg" alt="Hierarchical yarn shading model">
               </div>
             </article>
 
@@ -1336,7 +1571,7 @@
                 </div>
               </div>
               <div class="publication-media">
-                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/cloth.jpg" alt="Surface-based cloth rendering model">
+                <img class="publication-image" src="public/paper-previews/cloth.jpg" alt="Surface-based cloth rendering model">
               </div>
             </article>
           </div>
@@ -1355,7 +1590,7 @@
                 </div>
               </div>
               <div class="publication-media">
-                <img class="publication-image" src="https://junqiuzhu.github.io/imgs/ham.jpg" alt="Fur appearance aggregation" style="object-position: 50% 44%;">
+                <img class="publication-image" src="public/paper-previews/ham.jpg" alt="Fur appearance aggregation" style="object-position: 50% 44%;">
               </div>
             </article>
 
@@ -1572,5 +1807,20 @@
     </div>
   </footer>
 
+  <script>
+    const latestNewsToggle = document.querySelector(".latest-news-toggle");
+    const latestNewsExtraItems = document.querySelectorAll(".latest-news-extra");
+
+    latestNewsToggle?.addEventListener("click", () => {
+      const isExpanded = latestNewsToggle.getAttribute("aria-expanded") === "true";
+
+      latestNewsExtraItems.forEach((item) => {
+        item.hidden = isExpanded;
+      });
+
+      latestNewsToggle.setAttribute("aria-expanded", String(!isExpanded));
+      latestNewsToggle.textContent = isExpanded ? "Expand all" : "Collapse";
+    });
+  </script>
 </body>
 </html>
